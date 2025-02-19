@@ -15,6 +15,5 @@ public class Main {
         System.out.println(nota.notificador == examen.notificador);
         System.out.println(evento.notificador == examen.notificador);
 
-
     }
 }
