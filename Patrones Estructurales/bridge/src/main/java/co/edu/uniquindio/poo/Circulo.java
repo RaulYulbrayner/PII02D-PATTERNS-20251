@@ -8,4 +8,5 @@ public class Circulo extends Figura {
     public void dibujar() {
         implementacion.dibujarFigura("círculo");
     }
+
 }

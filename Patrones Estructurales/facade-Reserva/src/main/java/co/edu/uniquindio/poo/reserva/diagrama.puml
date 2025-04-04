@@ -1,0 +1,69 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+' ==== Clase Principal ====
+class Main {
+  + main(String[] args)
+}
+
+' ==== Fachada ====
+class HotelFacade {
+  + verHabitacionesDisponibles()
+  + reservar(String nombre, String tipo, String fecha)
+  + cancelarReserva(String nombre)
+}
+
+' ==== Subsistemas ====
+class SistemaReservas {
+  + verificarDisponibilidad(String tipo, String fecha): boolean
+  + mostrarDisponibilidad()
+  + registrarReserva(String nombre, String tipo, String fecha, double precio)
+  + cancelarReserva(String nombre)
+}
+
+class SistemaPagos {
+  + calcularPrecio(String tipo): double
+}
+
+class SistemaNotificaciones {
+  + enviarConfirmacion(String nombre, String tipo, String fecha)
+  + enviarCancelacion(String nombre)
+}
+
+' ==== Modelo ====
+class Reserva {
+  - nombreCliente: String
+  - tipoHabitacion: String
+  - fecha: String
+  - precio: double
+  + getNombreCliente()
+  + getTipoHabitacion()
+  + getFecha()
+  + getPrecio()
+}
+
+' ==== Relaciones ====
+Main --> HotelFacade
+
+HotelFacade --> SistemaReservas
+HotelFacade --> SistemaPagos
+HotelFacade --> SistemaNotificaciones
+
+SistemaReservas --> Reserva
+
+' ==== Notas ====
+note top of HotelFacade
+  <<Patrón Facade>>
+  Proporciona una interfaz simple para:
+  - Gestión de reservas
+  - Cálculo de pagos
+  - Notificaciones
+end note
+
+note right of SistemaReservas
+  Mantiene una lista de:
+  - Habitaciones disponibles
+  - Reservas activas
+end note
+
+@enduml
